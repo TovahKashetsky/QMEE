@@ -23,6 +23,12 @@ d1 <- rnorm(cn,cm,sdc)
 d2 <- rnorm(ncn,ncm,sdnc)
 t.test(d2,d1,paired=F,alternative="two.sided")
 
+
+=======
+  ## Grade 2/2
+  >>>>>>> f948d4deca33e0ddf47ab9ec080b52655521f27c
+
+
 <<<<<<< HEAD
 ## doing a t test for the test phase ##
 test.dec <- read.csv("testdecisions.csv")
@@ -34,6 +40,6 @@ print(test.dec)
 tapply(test.dec$decision_lat, INDEX = test.dec$group, FUN = mean,)
 
 
-=======
-## Grade 2/2
->>>>>>> f948d4deca33e0ddf47ab9ec080b52655521f27c
+
+
+
