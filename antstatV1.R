@@ -14,3 +14,14 @@ ncn <- 22 # no choice sample size
 d1 <- rnorm(cn,cm,sdc)
 d2 <- rnorm(ncn,ncm,sdnc)
 t.test(d2,d1,paired=F,alternative="two.sided")
+
+## doing a t test for the test phase ##
+test.dec <- read.csv("testdecisions.csv")
+print(test.dec)
+## delete empty rows and columns ##
+test.dec <- test.dec[ -(21:92),-(4:13)]
+print(test.dec)
+## find the mean decision latency of each group ##
+tapply(test.dec$decision_lat, INDEX = test.dec$group, FUN = mean,)
+
+
