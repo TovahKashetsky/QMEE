@@ -1,3 +1,6 @@
+
+# ASSIGNMENT 1 #
+
 ant_train <- read.csv("ant_train.csv")
 print(ant_train)
 
@@ -19,18 +22,19 @@ cn <- 23 # choice sample size
 ncn <- 22 # no choice sample size
 
 ## JD: This is pretty wild: you are doing a t-test on made-up numbers (rnorm) instead of the real ones.
+## TK: I used my old notes for a t-test but clearly didn't undertsand that function
 d1 <- rnorm(cn,cm,sdc)
 d2 <- rnorm(ncn,ncm,sdnc)
 t.test(d2,d1,paired=F,alternative="two.sided")
 
 
-=======
+
   ## Grade 2/2
-  >>>>>>> f948d4deca33e0ddf47ab9ec080b52655521f27c
 
 
-<<<<<<< HEAD
-## doing a t test for the test phase ##
+
+# IGNORE #
+## tried a t test for the test phase ##
 test.dec <- read.csv("testdecisions.csv")
 print(test.dec)
 ## delete empty rows and columns ##
@@ -40,6 +44,24 @@ print(test.dec)
 tapply(test.dec$decision_lat, INDEX = test.dec$group, FUN = mean,)
 
 
+# ASSIGNMENT 2 #
+library(tidyverse)
 
+str(ant_train)
+## not sure if I should convert "training" into a factor
+## I want to know how the colonies changed over time through each training session 
+## so I am keeping it as an integer for now
+
+## should be unique combinations of colony and training
+print(ant_train %>% group_by(colony, training) %>% summarize(count = n())) 
+print(ant_train %>% group_by(colony, training) %>% summarize(count = n()) %>% filter(count>1))
+
+## relational table to make sure each colony has 6 training counts
+print(ant_train %>% group_by(colony, training)%>% summarize(count=n())%>% group_by(colony)%>% summarize(count=n())%>% filter(count>1)%>% arrange(desc(count)))
+
+## check plots for decison latency and median transports
+## I expect they'll look similar
+print(ggplot(ant_train, aes(x=med_transport))+ geom_histogram())
+print(ggplot(ant_train, aes(x=decision_latency))+ geom_histogram())
 
 
