@@ -27,10 +27,7 @@ d1 <- rnorm(cn,cm,sdc)
 d2 <- rnorm(ncn,ncm,sdnc)
 t.test(d2,d1,paired=F,alternative="two.sided")
 
-
-
   ## Grade 2/2
-
 
 
 # IGNORE #
