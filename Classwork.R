@@ -26,4 +26,55 @@ mtcars1 <- rename(mtcars,
 rownames(mtcars1) [rownames(mtcars1) == "Valiant"] = "sausage"
 mtcars1
 
+#### Feb 2 ####
+library(tidyverse)
+homdat <- read_csv("~/Desktop/PSYCH708/New/QMEE/CA_homicide.csv")
+popdat <- read_csv("~/Desktop/PSYCH708/New/QMEE/CA_popdat.csv")
+
+
+rdat <- tibble(Place=homdat$Place,
+               Region=c("all",rep("Atlantic",4),
+                        rep("East",2),
+                        rep("West",4),
+                        rep("North",3)))
+head(rdat)
+
+sdat <- (homdat %>% pivot_longer(names_to="year",values_to="homicide",-Place, names_transform=list(year=as.numeric)))
+str(sdat)
+sdat2 <- sdat %>% full_join(rdat,by="Place") %>% full_join(popdat,by="Place")
+str(sdat2$Place)
+sdat3 <- (sdat2 %>% mutate (Place=fct_reorder(Place,Pop_2011)))
+str(sdat3$Place)
+
+saveRDS(sdat3, file="CA_homicide.rds") 
+mdat <- readRDS("CA_homicide.rds") 
+
+library(ggplot2)
+# set theme if u want
+theme_set(theme_bw())
+theme_set(base_size=10)
+p1 <- ggplot(mdat,aes(year,homicide,colour=Place))
+print (p1 + geom_line())
+p2 <- ggplot(mdat, aes(year, homicide, colour=Place))+geom_line()+ labs(y="homicides per 100,000 population")
+p2
+print (p1 + geom_boxplot())
+ggplot(mdat,aes(Place,homicide))+geom_boxplot()
+# flip axes for better labels
+p3 <- ggplot(mdat,aes(Place,homicide))+geom_boxplot()+coord_flip()
+p3
+# reorder
+mdat_sort <- mdat %>% mutate(Place=fct_reorder(Place,homicide))
+regiondat %+% mdat_sort + facet_wrap(Region)
+p3
+mdat_sort <- mdat %>% mutate(Place=fct_reorder(Place,homicide))
+
+## Feb 4th 
+install.packages("skimr")
+library(skimr)
+skim(ant_train)
+
+install.packages("MASS")
+library(MASS)
+
+
 
