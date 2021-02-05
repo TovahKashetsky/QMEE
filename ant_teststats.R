@@ -1,4 +1,5 @@
 # Stats for replicates 1&2 tests
+# for grad rsearch day
 
 # cleaning data
 # ant_testdata
@@ -19,14 +20,14 @@ ant_test <- ant_test[-(21:25), ]
 view(ant_test)
 
 # one way ANOVA
-# assumptions: Barlett for variance
-bartlett.test(decision_lat~group,data=ant_test) # smaller than .05
+# assumptions: Bartlett for variance
+bartlett.test(decision_lat~group,data=ant_test) # smaller than .05 not normal
 bartlett.test(prop_dark~group,data=ant_test) # larger than .05
 bartlett.test(cohesion~group,data=ant_test) # larger than .05
 # assumption: Shapiro Wilk for normality
-shapiro.test(ant_test$decision_lat) # smaller than .05
-shapiro.test(ant_test$prop_dark) # smaller than .05
-shapiro.test(ant_test$cohesion) # smaller than .05
+shapiro.test(ant_test$decision_lat) # smaller than .05 not normal
+shapiro.test(ant_test$prop_dark) # smaller than .05 not normal
+shapiro.test(ant_test$cohesion) # smaller than .05 not normal
 # Kruskal wallace for decision latency
 kruskal.test(decision_lat~group,data=ant_test)
 
