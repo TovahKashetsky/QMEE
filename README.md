@@ -15,5 +15,8 @@ With the test data from my experiment (different that what I used in assignment 
 After trying out some different types (violin, jitter, scatter, dotplot) I found the boxplot best represented what I wanted, and the range and quartiles are informative. Geom_point was also nice to see individual data points, but I liked seeing the median in the boxplots. Combining the geom_point and boxplot didn't look good either. I omitted most of the trial and error in the script to clean it up.
 The Cleveland hierarchy: My three variables are measured in different units so I kept the plots separate. I think I followed the rules well, it's not very hard with a simple boxplot. Except that I have colour because it looks nicer than plain bars, alhtough without colour the plots would give the same info.
 
+[JD: that's not anti-Cleveland, but it may be anti-Tufte ☺]
+
+antstatV1.R; ants_teststats2.R; ant_teststats.R is not good nomenclature. The filename doesn't need versions (that's what git is for) and should indicate how it differs from other files in the directory.
 
 

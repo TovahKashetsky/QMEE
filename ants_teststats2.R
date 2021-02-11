@@ -34,5 +34,14 @@ plotcohesion <- ggplot(ant_test3, aes(group, cohesion, colour=group))+geom_boxpl
 plotdark2 <- ggplot(ant_test3, aes(group, prop_dark, colour=group))+geom_point() + labs(y="Proportion of transports to the dark nest") + theme(legend.position="none")
 # I like box plot better because it's clear the where the mean and quartiles are
 
+## JD: Your script should print your plots (and other things that are results and not just sanity checks)
+## If it were me, I might _just_ print them (you can assign them to names later if you want to build on them). But this was the quickest way for me to see what you did.
 
+print(plotdecision)
+print(plotdark)
+print(plotcohesion)
+print(plotdark2)
 
+## Nice exploration; I'm surprised you didn't find something you liked with points and markers both. We could ask Ben about that… maybe just plot medians and points
+
+## Grade 2.1/3
