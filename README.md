@@ -22,7 +22,7 @@ A person with one positive test results has a 1 in 6 chance of actually having M
 
 Data hypotheses: 
 I think I would run three models.
----
+- - - 
 Training phase: Looking at change over time within each group because we cannot directly compare groups (the measures are different, even though the IV for both is called decision latency), so run two different models.
 
 Model 1: Choice group perfomarmance over the training phase
@@ -37,7 +37,7 @@ Independent variable: time events (6 training sessions)
 Dependent variable: decision latency 
 Hypothesis: decision latency decreases with time.
 Stats: A linear mixed effects-model could work.
----
+- - - 
 Test: Looking at difference between groups for a single time event (directly comparable)
 Model 3: Choice group and No Choice group performance on the test 
 Independent variable: experience with or without decision-making (choice and no choice groups)
@@ -45,12 +45,3 @@ Dependent variable 1: decision latency
 Dependent variable 2: proportion of transports to better nest 
 Hypothesis: the choice group will have shorter decision latency and a larger proportion of transports to the better nest than the no choice group.
 Stats: A MANOVA could work.
-
-
-
-
-[JD: that's not anti-Cleveland, but it may be anti-Tufte ☺]
-
-antstatV1.R; ants_teststats2.R; ant_teststats.R is not good nomenclature. The filename doesn't need versions (that's what git is for) and should indicate how it differs from other files in the directory.
-
-
