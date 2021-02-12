@@ -1,4 +1,4 @@
-### Classwork and testing shit out ###
+### Classwork and testing stuff out ###
 
 ## data carpentry ecology link ##
 download.file(url = "https://ndownloader.figshare.com/files/2292169", destfile = "/Users/faith/Desktop/data_raw/portal_data_joined.csv") 
@@ -30,7 +30,6 @@ mtcars1
 library(tidyverse)
 homdat <- read_csv("~/Desktop/PSYCH708/New/QMEE/CA_homicide.csv")
 popdat <- read_csv("~/Desktop/PSYCH708/New/QMEE/CA_popdat.csv")
-
 
 rdat <- tibble(Place=homdat$Place,
                Region=c("all",rep("Atlantic",4),
@@ -68,13 +67,7 @@ regiondat %+% mdat_sort + facet_wrap(Region)
 p3
 mdat_sort <- mdat %>% mutate(Place=fct_reorder(Place,homicide))
 
-## Feb 4th 
-install.packages("skimr")
-library(skimr)
-skim(ant_train)
 
-install.packages("MASS")
-library(MASS)
 
 
 
