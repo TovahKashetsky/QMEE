@@ -49,5 +49,8 @@ Stats: A MANOVA could work.
 
 
 
+[JD: that's not anti-Cleveland, but it may be anti-Tufte ☺]
+
+antstatV1.R; ants_teststats2.R; ant_teststats.R is not good nomenclature. The filename doesn't need versions (that's what git is for) and should indicate how it differs from other files in the directory.
 
 
