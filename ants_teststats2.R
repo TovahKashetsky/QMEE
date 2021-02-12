@@ -34,5 +34,13 @@ plotcohesion <- ggplot(ant_test3, aes(group, cohesion, colour=group))+geom_boxpl
 plotdark2 <- ggplot(ant_test3, aes(group, prop_dark, colour=group))+geom_point() + labs(y="Proportion of transports to the dark nest") + theme(legend.position="none")
 # I like box plot better because it's clear the where the mean and quartiles are
 
+# Plot colours
+library(wesanderson)
+names(wes_palettes)
+
+theme_set(theme_classic(base_size=35))
+plotdecision1 <- ggplot(ant_test3, aes(group, decision_lat)) +geom_boxplot(alpha=0.3) + labs(y="Decision latency (seconds)") + theme(legend.position="none")+ stat_sum(alpha=0.3)+ scale_size(range=c(4,5))
+plotdark1 <- ggplot(ant_test3, aes(group, prop_dark))+geom_boxplot(alpha=0.3) + labs(y="Proportion of transports to the dark nest") + theme(legend.position="none") +stat_sum(alpha=0.3)+ scale_size(range=c(5,6))
+plotcohesion1 <- ggplot(ant_test3, aes(group, cohesion))+geom_boxplot(alpha=0.3) + labs(y="Cohesiveness") + theme(legend.position="none")+stat_sum(alpha=0.3)+ scale_size(range=c(4,5))
 
 

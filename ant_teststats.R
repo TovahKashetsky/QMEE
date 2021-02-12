@@ -19,7 +19,6 @@ view(ant_test) #row 21-25
 ant_test <- ant_test[-(21:25), ]
 view(ant_test)
 
-# one way ANOVA
 # assumptions: Bartlett for variance
 bartlett.test(decision_lat~group,data=ant_test) # smaller than .05 not normal
 bartlett.test(prop_dark~group,data=ant_test) # larger than .05
@@ -30,4 +29,15 @@ shapiro.test(ant_test$prop_dark) # smaller than .05 not normal
 shapiro.test(ant_test$cohesion) # smaller than .05 not normal
 # Kruskal wallace for decision latency
 kruskal.test(decision_lat~group,data=ant_test)
+
+# try what Ben suggested 
+t.test(decision_lat~group, data=ant_test, var.equal=FALSE)
+t.test(prop_dark~group, data=ant_test, var.equal=TRUE)
+t.test(cohesion~group, data=ant_test, var.equal=TRUE)
+
+wilcox.test(decision_lat~group, data=ant_test)
+wilcox.test(prop_dark~group, data=ant_test)
+wilcox.test(cohesion~group, data=ant_test)
+
+tapply(ant_test$cohesion, INDEX = ant_test$group, FUN = mean, na.rm=TRUE)
 
