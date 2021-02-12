@@ -30,7 +30,7 @@ Dependent variable 2 = proportion of transports to better nest.
 Hypothesis: decision latency decreases with time, and prop transports increase with time.
 Stats: A linear mixed-effects model could work.
 
-Model 2: No Choice group perfomarmance over the training phase.
+Model 2: No Choice group performance over the training phase.
 Independent variable = time events (6 training sessions),
 Dependent variable = decision latency,
 Hypothesis: decision latency decreases with time.
