@@ -19,10 +19,10 @@ The Cleveland hierarchy: My three variables are measured in different units so I
 
 MMV question:
 A person with one positive test results has a 1 in 6 chance of actually having MMD (5% false positives + 1% true positives). I would tell them to get tested again. If their second test is also positive, they have MMD. If their second test is negative, get tested a third time. If that third test is negative, they don’t have MMD, and if its positive, then they do have MMD.
-
+- - - 
 Data hypotheses: 
 I think I would run three models.
-- - - 
+
 Training phase: Looking at change over time within each group because we cannot directly compare groups (the measures are different, even though the IV for both is called decision latency), so run two different models.
 
 Model 1: Choice group perfomarmance over the training phase
@@ -37,7 +37,7 @@ Independent variable: time events (6 training sessions)
 Dependent variable: decision latency 
 Hypothesis: decision latency decreases with time.
 Stats: A linear mixed effects-model could work.
-- - - 
+
 Test: Looking at difference between groups for a single time event (directly comparable)
 Model 3: Choice group and No Choice group performance on the test 
 Independent variable: experience with or without decision-making (choice and no choice groups)
