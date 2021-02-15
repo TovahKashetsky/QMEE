@@ -1,2 +1,12 @@
 
-Assignment 4 I – MMV A person with one positive test result has a 1 in 6 chance of actually having MMD (5% false positives + 1% true positives). I would tell them to get tested again. If their second test is also positive, they have MMD. If their second test is negative, get tested a third time. If that third test is negative, they don’t have MMD, and if it's positive, then they do have MMD.
+Assignment 4 I – MMV 
+
+A person with one positive test result has a 1 in 6 chance of actually having MMD (5% false positives + 1% true positives).
+
+## BMB: that's true, but perhaps you could show a little more of your work ... ?
+
+I would tell them to get tested again. If their second test is also positive, they have MMD. If their second test is negative, get tested a third time. If that third test is negative, they don't have MMD, and if it's positive, then they do have MMD.
+
+## BMB: fair enough. See solutions for a counter-argument.
+
+
