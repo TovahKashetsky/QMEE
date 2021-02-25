@@ -1,2 +1,44 @@
+<<<<<<< HEAD
 
-Assignment 4 II - Data HypothesesI think I will run three models for the two phases of my experiment.Training phase: Looking at change over time within each group because we cannot directly compare groups (the measures are different, even though the IV for both is called decision latency), so run two different models.Model 1: Choice group performance over the training phase.Independent variable = time events (6 training sessions)Dependent variable 1 = decision latencyDependent variable 2 = proportion of transports to better nestHypothesis: decision latency decreases with time, and prop transports increase with time.Stats: A linear mixed-effects model could work.Model 2: No Choice group performance over the training phase.Independent variable = time events (6 training sessions)Dependent variable = decision latencyHypothesis: decision latency decreases with time.Stats: A linear mixed effects-model could work.Test: Looking at difference between groups for a single time event (directly comparable).Model 3: Choice group and No Choice group performance on the test.Independent variable = experience with or without decision-making (choice and no choice groups)Dependent variable 1 = decision latencyDependent variable 2 = proportion of transports to better nestHypothesis: the choice group will have shorter decision latency and a larger proportion of transports to the better nest than the no choice group.Stats: A MANOVA could work.
+Assignment 4 II - Data HypothesesI think I will run three models for the two phases of my experiment.Training phase: Looking at change over time within each group because we cannot directly compare groups (the measures are different, even though the IV for both is called decision latency), so run two different models.Model 1: Choice group performance over the training phase.Independent variable = time events (6 training sessions)Dependent variable 1 = decision latencyDependent variable 2 = proportion of transports to better nestHypothesis: decision latency decreases with time, and prop transports increase with time.Stats: A linear mixed-effects model could work.Model 2: No Choice group performance over the training phase.Independent variable = time events (6 training sessions)Dependent variable = decision latencyHypothesis: decision latency decreases with time.Stats: A linear mixed effects-model could work.Test: Looking at difference between groups for a single time event (directly comparable).Model 3: Choice group and No Choice group performance on the test.Independent variable = experience with or without decision-making (choice and no choice groups)Dependent variable 1 = decision latencyDependent variable 2 = proportion of transports to better nestHypothesis: the choice group will have shorter decision latency and a larger proportion of transports to the better nest than the no choice group.Stats: A MANOVA could work.
+=======
+Assignment 4 II - Data Hypotheses
+
+## BMB: we do still prefer file names *without* spaces ...
+
+I think I will run three models for the two phases of my experiment.
+
+Training phase: Looking at change over time within each group because we cannot directly compare groups (the measures are different, even though the IV for both is called decision latency), so run two different models.
+
+## Model 1: Choice group performance over the training phase.
+
+Independent variable = time events (6 training sessions)
+Dependent variable 1 = decision latency
+Dependent variable 2 = proportion of transports to better nest
+Hypothesis: decision latency decreases with time, and prop transports increase with time.
+Stats: A linear mixed-effects model could work.
+
+Model 2: No Choice group performance over the training phase.
+Independent variable = time events (6 training sessions)
+Dependent variable = decision latency
+Hypothesis: decision latency decreases with time.
+Stats: A linear mixed effects-model could work.
+
+## BMB: it would be good if there was a way to compare the groups directly: could you use *proportional* changes in decision latency over time (or equivalent, model log(latency) ?
+You're doing a good job explaining the details of the comparisons you want to make and the tests you want to use, but you're not connecting it to the *biological* hypotheses (although I guess I can get these from your README file).  Are you interested in whether the choice group improves "performance" faster than the no-choice group (not quite sure what the latency means for the no-choice group here)?
+
+Test: Looking at difference between groups for a single time event (directly comparable).
+
+## BMB: don't you want to compare trends?
+
+Model 3: Choice group and No Choice group performance on the test.
+Independent variable = experience with or without decision-making (choice and no choice groups)
+Dependent variable 1 = decision latency
+Dependent variable 2 = proportion of transports to better nest
+Hypothesis: the choice group will have shorter decision latency and a larger proportion of transports to the better nest than the no choice group.
+Stats: A MANOVA could work.
+
+## BMB: MANOVA could work.  It will depend a little bit on how your data are structured (if the 'denominator' - maximum number of possible transports - is small, then it may be hard to get response variable 2 to look Normal). MCMCglmm would allow you to fit a "multi-type" model where one response was binomial and the other was log-Normal ...
+
+## grade: 2.3/3
+>>>>>>> 56d729ebfd7676a2fa10c887cd1c0ebf3153f22a
