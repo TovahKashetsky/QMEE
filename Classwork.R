@@ -67,6 +67,45 @@ regiondat %+% mdat_sort + facet_wrap(Region)
 p3
 mdat_sort <- mdat %>% mutate(Place=fct_reorder(Place,homicide))
 
+## Permutations ## Feb 24 ##
+
+setwd("~/Desktop/PSYCH708/New/QMEE")
+download.file(url = "https://raw.githubusercontent.com/mac-theobio/QMEE/master/docs/data/ants.csv", destfile = "~/Desktop/PSYCH708/New/QMEE/qmeeants.csv")
+qmeeants <- read_csv("../QMEE/qmeeants.csv")
+
+ggplot(qmeeants,aes(x=place,y=colonies)) + geom_boxplot()
+set.seed(101)
+res <- numeric(9999)
+for (i in 1:9999) {
+  
+  perm <- sample(nrow(qmeeants))
+  sample(nrow(qmeeants))
+  bdat <- transform(qmeeants,colonies=colonies[perm])
+  
+  fieldmean <- mean(bdat[bdat$place=="field","colonies"])
+  fieldmean
+  forestmean <- mean(bdat[bdat$place=="forest","colonies"])
+  forestmean
+  res[i] <- fieldmean - forestmean
+}
+res[1]
+res[2] 
+
+truefieldmean <- qmeeants %>% filter(place=="field") %>% pull(colonies) %>% mean
+trueforestmean <- qmeeants %>% filter(place=="forest") %>% pull(colonies) %>% mean
+obsval <- truefieldmean - trueforestmean
+hist(res)
+abline(v=obsval, col="red") 
+allvals <- c(res,obsval)
+sum(allvals>=obsval)
+mean(allvals>=obsval)
+2*mean(allvals >=obsval)
+
+# t test
+tt <- t.test(colonies~place,data=qmeeants,var.equal=TRUE)
+tt$statistic
+tt <- t.test(colonies~place,data=bdat,var.equal=TRUE)
+res[i] <- tt$statistic
 
 
 
