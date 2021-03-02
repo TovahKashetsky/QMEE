@@ -50,73 +50,61 @@ for (i in 1:9999) {
 }
 res[2] #checking for different values
 res[3]
-res[4] 
-res <- c(res, obs)
+
 hist(res,col="gray",las=1,main="") 
 abline(v=obs,col="red")
+allvals <- c(res, obs)
+mean(allvals>=obs)
+(obs_pval <- 2*mean(allvals>=obs))
 # it looks like the choice and no choice groups do not differ in decision latency
 
 # Test 1b: T-test - efficiency 
 nortt2 <- t.test(prop_dark~group, data=ant_test, var.equal=TRUE)
 obs2 <- nortt2$statistic
 
-res <- numeric(9999)
+res2 <- numeric(9999)
 for (i in 1:9999) {
-  perm <- sample(nrow(ant_test))
-  pdat2 <-transform(ant_test,prop_dark=prop_dark[perm])
+  perm2 <- sample(nrow(ant_test))
+  pdat2 <-transform(ant_test,prop_dark=prop_dark[perm2])
   tt2 <- t.test(prop_dark~group, data=pdat2, car.equal=TRUE)
-  res[i] <- tt2$statistic
+  res2[i] <- tt2$statistic
 }
-res[2]
-res[3]
-res[4]
-res <- c(res, obs2)
-hist(res,col="gray",las=1,main="") 
-abline(v=obs,col="red")
-# it looks like the choice and no choice groups do not differ in efficiency 
+res2[2]
+res2[3]
 
-# Hypothesis 1 from text file: Colonies will improve with experience
+hist(res2,col="gray",las=1,main="") 
+abline(v=obs2,col="red")
+allvals2 <- c(res2, obs2)
+mean(allvals2>=obs2)
+(obs_pval2 <- 2*mean(allvals2>=obs2))
+# it looks like the choice and no choice groups do not differ in efficiency with the 2 tailed
 
-# Test 3: Regression - emigration speed
+# Hypothesis 1 from text file: Colonies will improve performance with experience
 
+# Test 3 - Regression for emigration duration over time
 ant_train <- read_csv("ant_train.csv")
-ant_train <- ant_train[ ,-(8:13)]
-# taking the easy way of removing values because this is a small subset of my data that I will not use for my actual stats
+ant_train <- ant_train[ ,-(8:13)] # taking the easy way of removing values because this is a small subset of my data that I will not use for my actual stats
 
 ant.lm <- lm(med_transport~training, data= ant_train)
 summary(ant.lm)
-# plot how median transport (seconds)looks with experience (training sessions)
+# plot how median transport (in seconds) looks with experience (training sessions)
 (ggplot(ant_train, aes(training,med_transport))+geom_point()+geom_smooth(method="lm", formula=y~x))
 
-simfun2 <- function(respvar="med_transport",data=ant_train) {
+simfun2 <- function(duration="med_transport",data=ant_train) {
   permdat <- data
-  permdat[[respvar]] <- sample(permdat[[respvar]])
+  permdat[[duration]] <- sample(permdat[[duration]])
   permdat
 }
 sumfun_train <- function(dat) {
   coef(lm(med_transport~training,data=dat))["training"]
 }
-permdist_train <- replicate(9999,sumfun_train(simfun2()))
+permdist_train <- replicate(1999,sumfun_train(simfun2()))
 (train_pval <- mean(abs(permdist_train)>=abs(sumfun_train(ant_train))))
-### giving me zero
 hist(permdist_train,col="gray",breaks=30,freq=FALSE,main="")
-abline(v=sumfun_train(ant_train),col="red") #### no line
+abline(v=sumfun_train(ant_train),col="red") #### no line, could not get the scale to fit so the line is visible 
 
-permdist <- c(permdist,obs_val) # i dont have obs val yet ..
-(obs_pval <- 2*mean(permdist>=obs_stat))
-
-
-
-
-
-
-# tried a PERMANOVA but did not get very far
-ant.man <- manova(cbind(decision_lat, prop_dark) ~ group, data = ant_test)
-summary.aov(ant.man)
-library("vegan")
-perm.man <- adonis2(decision_lat~group, data=ant_test, permutation=999)
-
-# tried the general way but I didn't quite understand it, so did t-test instead
+# ignore
+# tried the general way but I didn't quite understand it, so did t-test instead ^
 library("gtools")
 comb <- combinations(nrow(ant_test), sum(ant_test$group=="Choice"))
 nrow(comb)
@@ -131,7 +119,6 @@ permdist <- numeric(ncomb)
 for (i in 1:ncomb) {
   permdist[i] <- sumfun(simfun(comb[i]))
 }
-
 s <- simfun(comb[1,])
 sumfun(s)
 obs_stat <- decisionPT$statistic
