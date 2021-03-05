@@ -14,6 +14,8 @@ summary(ant_test)
 ant_test <- ant_test[-(21:26), ]
 # make the ggplots assignment 3
 theme_set(theme_bw())
+# change margins if too large
+par(mar=c(1,1,1,1))
 # white background, make see through with alpha
 plotdecision <- ggplot(ant_test, aes(group, decision_lat, colour=group)) +geom_boxplot(alpha=0.3) + labs(y="Decision latency (seconds)") + theme(legend.position="none")
 plotdark <- ggplot(ant_test, aes(group, prop_dark, colour=group))+geom_boxplot(alpha=0.3) + labs(y="Proportion of transports to the dark nest") + theme(legend.position="none")
@@ -122,6 +124,27 @@ for (i in 1:ncomb) {
 s <- simfun(comb[1,])
 sumfun(s)
 obs_stat <- decisionPT$statistic
+
+
+## Assignment 6 ##
+
+model <- lm(decision_lat~group, data=ant_test)
+summary(model)
+plot(mod)
+
+#teams
+lm1 <- lm(med_transport~group, data= ant_train)
+summary(lm1)
+plot(lm1)
+
+linmod <- lm(prop_dark~group, data=ant_test)
+summary(linmod)
+plot(linmod)
+
+linmod2 <- lm(tot_transports~group, data=ant_train)
+summary(linmod2)
+plot(linmod2)
+
 
 
 

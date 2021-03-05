@@ -107,6 +107,42 @@ tt$statistic
 tt <- t.test(colonies~place,data=bdat,var.equal=TRUE)
 res[i] <- tt$statistic
 
+# linear models
+
+download.file(url = "https://raw.githubusercontent.com/mac-theobio/QMEE/master/docs/data/skewdat.csv", destfile = "~/Desktop/PSYCH708/New/QMEE/skewdat.csv")
+skewdata <- read.csv("../QMEE/skewdat.csv")
+m1 <- lm(skew~Size, data=skewdata)
+plot(m1,id.n=6) #id is to see the numbers of the 6 largest residuals 
+
+download.file(url = "https://raw.githubusercontent.com/mac-theobio/QMEE/master/docs/data/lizards.csv", destfile = "~/Desktop/PSYCH708/New/QMEE/lizards.csv")
+lizards <- read.csv("../QMEE/lizards.csv")                                                               
+lizards$time <- factor(lizards$time,levels=c("early","midday","late"))
+
+lmint <- lm(grahami~light*time, data=lizards)
+lmboth <- lm(grahami~light + time, data=lizards)
+lmlight <- lm(grahami~light, data=lizards)
+lmtime <- lm(grahami~time, data=lizards)
+summary(lmint) 
+summary(lmboth) 
+summary(lmlight) 
+summary(lmtime) 
+
+drop1(lmboth, test="F")
+car::Anova(lmboth)
+
+library(multcomp)
+summary(mc <- glht(lmboth, linfct=mcp(time="Tukey"))) 
+library(emmeans)
+e1 <- emmeans(lmboth, "time")
+pairs(e1)
+
+mc <- glht(lmboth, linfct=mcp(time="Tukey"))
+summary(mc)
+cld(mc)
+
+summary(lm1 <- lm(colonies~place,data=qmeeants))
+summary(lm2 <- lm(colonies~place-1,data=qmeeants))
+summary(lm3 <- lm(colonies~place+0,data=qmeeants))
 
 
 
