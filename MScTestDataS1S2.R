@@ -29,8 +29,8 @@ plotdirecttrans
 
 wt.decision <- wilcox.test(decision_lat~group, data = testdata)
 wt.decision
-wt.efficiency <- wilcox.test(direct_dark~group, data = testdata, exact = FALSE) 
-wt.efficiency
+wt.directtrans <- wilcox.test(direct_dark~group, data = testdata, exact = FALSE) 
+wt.directtrans
 
 tt.decision <- t.test(decision_lat~group, data = testdata)
 tt.efficiency <- t.test(direct_dark~group, data = testdata)
