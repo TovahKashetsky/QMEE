@@ -128,23 +128,47 @@ obs_stat <- decisionPT$statistic
 
 ## Assignment 6 ##
 
-model <- lm(decision_lat~group, data=ant_test)
-summary(model)
-plot(mod)
+# Hypothesis: choice group will perform better on a decision-making task than the no choice group
 
-#teams
-lm1 <- lm(med_transport~group, data= ant_train)
-summary(lm1)
-plot(lm1)
+library(tidyverse)
 
-linmod <- lm(prop_dark~group, data=ant_test)
-summary(linmod)
-plot(linmod)
+decision.lm <- lm(decision_lat~group, data=ant_test)
+summary(decision.lm)
+plot(decision.lm)
+# model shows difference between groups is not significant
+# residual vs fitted plot looks like line is almost straight which is good
+# normal Q-Q suggests that my data point "5" might be an outlier. 
+# no residual vs leverage plot, so I can't see if the 5 is within Cook's distance
+# scale-location line is constant, so that's good
 
-linmod2 <- lm(tot_transports~group, data=ant_train)
-summary(linmod2)
-plot(linmod2)
+darktrans.lm <- lm(prop_dark~group, data=ant_test)
+summary(darktrans.lm)
+plot(darktrans.lm)
+# model shows difference between groups is not significant (fingers crossed for when I have more data)
+# residuals vs fitted plot is great, red line is nearly flat
+# normal Q-Q is a little wonky
+# no residual vs leverage plot
+# scale-location line is constant, that's good
 
+dummy.lm <- lm(decision_lat~prop_dark, data=ant_test)
+summary(dummy.lm) 
+plot(dummy.lm)
+# this was to see how two continuous variables looked, both variables are dependent
+# all diagnostic plots look good
 
+library(emmeans)
 
+decision.e <- emmeans(decision.lm,"group")
+pairs(decision.e)
+plot(decision.e)
+# looks like the choice group has a lower emmean than the no choice group, which is expected
+# there is a fair overlap though, which is consistant with my previous tests 
+# there is more overlap compared to my ggplots print(plotdecision) from assingment 3
+# plotdecision <- ggplot(ant_test, aes(group, decision_lat, colour=group)) +geom_boxplot(alpha=0.3) + labs(y="Decision latency (seconds)") + theme(legend.position="none")
+
+darktrans.e <- emmeans(darktrans.lm,"group")
+pairs(darktrans.e)
+plot(darktrans.e)
+# looks like the choice group has a higher emmean than the no choice group, which is also expected
+# still some overlap, not as much though
 
