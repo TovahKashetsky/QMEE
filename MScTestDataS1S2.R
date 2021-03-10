@@ -32,5 +32,10 @@ wt.decision
 wt.directtrans <- wilcox.test(direct_dark~group, data = testdata, exact = FALSE) 
 wt.directtrans
 
+
 tt.decision <- t.test(decision_lat~group, data = testdata)
 tt.efficiency <- t.test(direct_dark~group, data = testdata)
+
+
+
+
