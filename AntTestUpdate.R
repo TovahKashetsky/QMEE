@@ -1,4 +1,6 @@
 
+#### Assignment 5 ####
+
 library(tidyverse)
 library(dplyr)
 library(janitor)
@@ -76,7 +78,7 @@ hist(permdist_train,col="gray",breaks=30,freq=FALSE,main="")
 abline(v=sumfun_train(ant_train),col="red") #### no line, could not get the scale to fit so the line is visible 
 
 
-## Assignment 6 ##
+#### Assignment 6 ####
 
 # Hypothesis: choice group will perform better on a decision-making task than the no choice group
 # same data as above, run if needed:
@@ -124,7 +126,8 @@ plot(darktrans.e)
 # still some overlap, not as much though
 
 
-## Assingment 7 ## Generalized Linear Model ##
+#### Assingment 7 ####
+# Generalized Linear Model 
 # I don't have comments from my last 2 assingments yet so hopefully I don't keep making the same mistakes
 
 library(tidyverse)
