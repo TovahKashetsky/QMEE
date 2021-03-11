@@ -36,6 +36,8 @@ wt.directtrans
 tt.decision <- t.test(decision_lat~group, data = testdata)
 tt.efficiency <- t.test(direct_dark~group, data = testdata)
 
+hist(testdata$decision_lat)
+hist(testdata$direct_dark)
 
 
 

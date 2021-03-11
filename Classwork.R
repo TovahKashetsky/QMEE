@@ -144,5 +144,19 @@ summary(lm1 <- lm(colonies~place,data=qmeeants))
 summary(lm2 <- lm(colonies~place-1,data=qmeeants))
 summary(lm3 <- lm(colonies~place+0,data=qmeeants))
 
+# GLM
+library(ggplot2)
+download.file(url = "https://raw.githubusercontent.com/mac-theobio/QMEE/master/docs/data/aids.csv", destfile = "~/Desktop/PSYCH708/New/QMEE/aids.csv")
+aids <- read.csv("~/Desktop/PSYCH708/New/QMEE/aids.csv")
+aids <- transform(aids, date=year+(quarter-1)/4)
+gg0 <- ggplot(aids,aes(date,cases))+geom_point()
 
+gg1 <- gg0 + geom_smooth(method="glm",colour="orange",
+                         formula=y~x,
+                         method.args=list(family="quasipoisson"(link="log")))
+
+m1 <- glm(cases~date, family=quasipoisson(link="log"), data=aids)
+summary(m1)
+plot(m1)
+acf(residuals(m1))
 
