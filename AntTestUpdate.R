@@ -160,7 +160,8 @@ mt1 <- mt + geom_smooth(method="glm",colour="orange",
 mtmodel <- glm(med_transport~training, family=Gamma(link="log"), data=train.data)
 summary(mtmodel) 
 plot(mtmodel)
-# all the plots look good
+# plots look fine ... red lines not as straight as they could be but no major issues
+# looks better than when I incorrectly used the poisson family
 
 # for the inferential stats I will do another model looking at med_transport between groups, instead of over training sessions
 mtx <- ggplot(train.data, aes(group,med_transport))+geom_point()
@@ -172,7 +173,6 @@ summary(mtxmodel)
 plot(mtxmodel) # diagnostic plots look fine
 library(emmeans)
 mtx.emmeans <- emmeans(mtxmodel,"group")
-pairs(mtx.emmeans)
 plot(mtx.emmeans) # NoChoice group has smaller emmean than Choice group. Makes sense because the nochoice group doesn't have the added time of making decisions
 
 
