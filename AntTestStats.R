@@ -3,14 +3,18 @@ library(tidyverse)
 ant_test <- read_csv("ant_testdata.csv")
 print(ant_test)
 # two columns named colony, change colony_1 to video
-library(dplyr)
+## BMB: would be better to fix this upstream (i.e. in the CSV and/or Excel files)
+library(dplyr)  ## BMB: redundant with tidyverse load
 ant_test <- rename(ant_test, video = colony_1)
 print(ant_test)
 # make replicate and video a factor
+## BMB: can do this in one step
 ant_test <- (ant_test %>% mutate(replicate=as.factor(replicate)))
 ant_test <- (ant_test %>% mutate(video=as.factor(video)))
 summary(ant_test)
 # remove empty rows because janiotr package didn't work
+## BMB: does the example shown here help?
+##    https://github.com/sfirke/janitor/blob/master/R/remove_empties.R#L28-L29
 ant_test <- ant_test[-(21:26), ]
 # make the ggplots assignment 3
 theme_set(theme_bw())
@@ -134,6 +138,7 @@ library(tidyverse)
 
 decision.lm <- lm(decision_lat~group, data=ant_test)
 summary(decision.lm)
+## BMB: should always do diagnostics *before* looking at summary()
 plot(decision.lm)
 # model shows difference between groups is not significant
 # residual vs fitted plot looks like line is almost straight which is good
@@ -141,10 +146,33 @@ plot(decision.lm)
 # no residual vs leverage plot, so I can't see if the 5 is within Cook's distance
 # scale-location line is constant, so that's good
 
+## BMB: with a two-group test the diagnostics will usually be pretty boring
+## I would usually go back to your original data and inspect that point.
+(diag1 <- ggplot(ant_test,aes(group, decision_lat)) + geom_boxplot() + geom_point(col="red",alpha=0.5))
+## is a decision latency of >4000 sensible?
+## would a log scale make sense?
+diag1 + scale_y_log10()
+## this looks a little strong (variance of lower-mean group is now larger)
+diag1 + scale_y_sqrt()
+## maybe just right? (4000+ point is still weird)
+dev.off()  ## reset graphics to reset parameters
+dlm2 <- update(decision.lm, subset=decision_lat<4000)
+MASS::boxcox(decision.lm)
+## Box-Cox thinks you should log-transform ..
+MASS::boxcox(dlm2)
+## but if you remove the outlier it thinks you should sqrt-transform
+
+## you really need to think about/decide about that point!
+
 darktrans.lm <- lm(prop_dark~group, data=ant_test)
 summary(darktrans.lm)
 plot(darktrans.lm)
 # model shows difference between groups is not significant (fingers crossed for when I have more data)
+## BMB: why do you hope it is non-significant? You should **never** frame a question
+## in terms of "I hope it is non-significant". Instead, pick a reference value (I hope
+## the difference is less than 0.05 in prop_dark). Then you can work sensibly.
+## A 29% difference in proportion dark (with a CI ranging from -63% to +0.05%)
+## seems pretty big too me.
 # residuals vs fitted plot is great, red line is nearly flat
 # normal Q-Q is a little wonky
 # no residual vs leverage plot
@@ -157,7 +185,6 @@ plot(dummy.lm)
 # all diagnostic plots look good
 
 library(emmeans)
-
 decision.e <- emmeans(decision.lm,"group")
 pairs(decision.e)
 plot(decision.e)
@@ -171,4 +198,9 @@ pairs(darktrans.e)
 plot(darktrans.e)
 # looks like the choice group has a higher emmean than the no choice group, which is also expected
 # still some overlap, not as much though
+
+## BMB: coefficient plots are better for inference. Overlap is **not** a very
+## good way to judge differences.
+
+## grade: 2.1
 
