@@ -178,4 +178,3 @@ library(emmeans)
 mtx.emmeans <- emmeans(mtxmodel,"group")
 plot(mtx.emmeans) # NoChoice group has smaller emmean than Choice group. Makes sense because the nochoice group doesn't have the added time of making decisions
 
-

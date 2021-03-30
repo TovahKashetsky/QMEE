@@ -1,4 +1,4 @@
-﻿group,replicate,colony,colony,decision_lat,prop_dark,cohesion
+group,replicate,colony,colony,decision_lat,prop_dark,cohesion
 Choice,1,n.amb17,958,217.779,0.227,0.933333333
 Choice,1,n.amb5,484,643.865,0.833,1
 Choice,1,n.amb20,574,431.833,0.421,0.142857143
@@ -19,8 +19,3 @@ NoChoice,2,n.amb1,243,1467.002,0.385,0.130434783
 NoChoice,2,n.amb14,699,1437.999,0.057,1
 NoChoice,2,n.amb13,447,1272.489,0.075,0.923076923
 NoChoice,2,n.amb2,310,1088.04,0.429,0.358490566
-,,,,,,
-,,,,,,
-,,,,,,
-,,,,,,
-,,,,,,

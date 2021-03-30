@@ -160,3 +160,52 @@ summary(m1)
 plot(m1)
 acf(residuals(m1))
 
+
+## Mixed Models ##
+
+library(lme4)
+## per-group fit (fixed)
+lm1 <- lmList(Reaction~Days|Subject, data=sleepstudy)  ## stratified
+lm1B <- lm(Reaction~Days*Subject, data=sleepstudy)     ## fixed effect
+## random intercept
+lm2 <- lmer(Reaction~Days+(1|Subject), data=sleepstudy)
+## random slopes
+lm3 <- lmer(Reaction~Days+(1+Days|Subject), data=sleepstudy) 
+
+
+## Bayes ##
+library('BBmisc')
+
+set.seed(411)
+# make fake data
+N <- 40
+## predictor variables
+a <- runif(N)
+b <- runif(N)
+c <- runif(N)
+y <- rnorm(N,mean=2+1*a+4*b+1*c,sd=1)
+dat <- data.frame(y,a,b,c)
+
+
+
+
+library("rjags")
+library("R2jags")
+jags1 <- jags(model.file='../code/bayes.bug',
+              parameters=c("ma","mb","mc","int"),
+              data = namedList(a, b, c, N, y),
+              n.chains = 4,
+              inits=NULL)
+model {
+ for (i in 1:N) {
+    y[i] ~ dnorm(pred[i], tau)
+     pred[i] <- ma*a[i] + mb*b[i] + mc*c[i] + int
+  }
+  ## priors ("vague"/"flat"/"weak"/"uninformative")
+ ma ~ dnorm(0, .0001)
+ mb ~ dnorm(0, .0001)
+  mc ~ dnorm(0, .0001)
+ int ~ dnorm(0, .0001)
+ tau ~ dgamma(.001, .001)
+ }
+
