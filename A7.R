@@ -1,13 +1,5 @@
 
 #### Assingment 7 ####
-# Generalized Linear Model 
-# I don't have comments from my last 2 assingments yet so hopefully I don't keep making the same mistakes
-
-## JD: I definitely wrote comments on your permutation assignment; sorry if you didn't get them! I feel it's my fault.
-
-## I have this in my notes: 
-## JD: Not very concrete to me what you're going to do. I definitely don't understand the PERMANOVA part. What's your single test statistic?
-## I don't know if there was anything else, sorry!
 
 library(tidyverse)
 library(dplyr)
@@ -25,12 +17,31 @@ print(train.data) # NoChoice group should have NAs for prop_dark
 ## I also get an error from R saying exactly that.
 ## Please advise
 # TK: I changed prediction 1 to quasipossion 
+## JD: This does not sound right. Why would quasipossion be good for proportions?
+## Also, quasipossion should not be happy with non-integers either
 train.choice <- train.data %>% group_by(group) %>% filter(group=="Choice") # make data only for choice group
 print(train.choice)
 pd <- ggplot(train.choice, aes(training,prop_dark))+geom_point()
 pd1 <- pd + geom_smooth(method="glm",colour="orange",
                            formula=y~x,
                            method.args=list(family=quasipoisson(link="log"))) 
+
+## JD: Not sure why you didn't show this plot; it's helpful.
+
+print(pd1)
+
+## JD: The correct way to model proportions is to base it on what it's a proportion _of_. 
+## We talked about two ways to do this in class; either as successes and failures, or with proportions and weights
+## Sorry that my previous message was short, but I thought you would figure it out.
+## It looks to me tot_transports is your denominator, although it's hard to be sure.
+## In any case, it's not surprising you don't see a clear pattern in these data.
+
+goodmodel <- glm(data=train.choice, prop_dark~training
+	, weights = tot_transports
+	, family="binomial"
+)
+summary(goodmodel)
+
 pdmodel <- glm(data=train.choice, prop_dark~training, family=quasipoisson(link="log"))
 summary(pdmodel)
 par(mar=c(1,1,1,1)) # margins too large
@@ -41,10 +52,20 @@ acf(residuals(pdmodel))
 
 # Prediction 2: med_transport will decrease in both groups over time
 ## use gamma because it's counts with no max, non integers
+## JD: I'm not sure what you mean by counts (counts usually mean discrete events, counted in integers).
 mt <- ggplot(train.data, aes(training,med_transport))+geom_point()
 mt1 <- mt + geom_smooth(method="glm",colour="orange",
                         formula=y~x,
                         method.args=list(family=Gamma(link="log")))
+
+## JD: Looks like there might be an interesting pattern here
+print(mt1)
+print(ggplot(train.data)
+	+ aes(training,med_transport, color=group)
+	+ geom_point()
+	+ geom_smooth(method="lm")
+)
+
 mtmodel <- glm(med_transport~training, family=Gamma(link="log"), data=train.data)
 summary(mtmodel) 
 plot(mtmodel)
@@ -53,6 +74,7 @@ plot(mtmodel)
 # looks better than when I incorrectly used the poisson family
 
 # for the inferential stats I will do another model looking at med_transport between groups, instead of over training sessions
+## JD: Why one or the other? Doesn't seem to match your question; was there a problem using both predictors?
 mtx <- ggplot(train.data, aes(group,med_transport))+geom_point()
 mt1x <- mtx + geom_smooth(method="glm",colour="orange",
                         formula=y~x,
@@ -64,5 +86,6 @@ library(emmeans)
 mtx.emmeans <- emmeans(mtxmodel,"group")
 plot(mtx.emmeans) # NoChoice group has smaller emmean than Choice group. Makes sense because the nochoice group doesn't have the added time of making decisions
 
+## JD: Not sure why you seem to think you've seen something clearly. Did you look at the model summary?
 
-
+## Grade 1.6/3
